@@ -5,35 +5,6 @@ const replaceTemplate = require('./modules/replaceTemplate');
 
 const slugify = require('slugify');
 
-//FILES---------------------------------------------//
-// const textIn = fs.readFileSync('./txt/input.txt', 'utf-8'); //Synchrononos version of file reading
-// console.log(textIn);
-
-// const textOut = `This is what we know about avocado - ${textIn}.\nCreated on ${Date.now()} `;
-// fs.writeFileSync('./txt/output.txt', textOut); //Writing the text from JS into a new text file
-// console.log('File has been written!');
-
-//This is a synchronous way of coding - each line waits for the previous line to complete.
-//This is also known as blocking code.
-
-//Alternative - Asynchronous/non-blocking code
-// fs.readFile('./txt/start.txt', 'utf-8', (err, data1) => {
-//   if (err) {
-//     return console.log('ERROR!!!');
-//   }
-//   fs.readFile(`./txt/${data1}.txt`, 'utf-8', (err, data2) => {
-//     console.log(data2);
-//     fs.readFile(`./txt/append.txt`, 'utf-8', (err, data3) => {
-//       console.log(data3);
-//       fs.writeFile('./txt/final.txt', `${data2}\n${data3}`, 'utf-8', (err) => {
-//         console.log('Your file has been written!');
-//       });
-//     });
-//   });
-// });
-
-// console.log('Outside the Read File');
-
 //SERVERS---------------------------------------------//
 
 //Reading the contents of HTMLs and storing as a string
@@ -53,9 +24,6 @@ const tempProd = fs.readFileSync(
 //Reading the product JSON
 const data = fs.readFileSync(`${__dirname}/dev_data/data.json`, 'utf-8'); //Synchronous as we need it to be run only once in beginning to fetch the data
 const prodData = JSON.parse(data);
-
-const slugs = prodData.map((el) => slugify(el.productName, { lower: true }));
-//console.log(slugs); //convert the product names into URL-able names
 
 //Creating the server
 const server = http.createServer((req, res) => {
