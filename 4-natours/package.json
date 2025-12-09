@@ -4,11 +4,14 @@
   "description": "Learning Node, Express and MongoDB",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start:dev": "nodemon server.js",
+    "start:prod": "NODE_ENV=production nodemon server.js"
   },
   "author": "clancy",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.22.1"
+    "dotenv": "^17.2.3",
+    "express": "^4.22.1",
+    "morgan": "^1.10.1"
   }
 }
