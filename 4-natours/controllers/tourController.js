@@ -1,6 +1,7 @@
 const fs = require('fs');
+
 const tours = JSON.parse(
-  fs.readFileSync(`${__dirname}/../dev-data/data/tours-simple.json`)
+  fs.readFileSync(`${__dirname}/../dev-data/data/tours-simple.json`),
 );
 
 exports.checkID = (req, res, next, val) => {
@@ -15,14 +16,14 @@ exports.checkID = (req, res, next, val) => {
 };
 
 exports.checkBody = (req, res, next) => {
-  console.log(req.body);
-  if (!req.body['name']) {
+  // console.log(req.body);
+  if (!req.body.name) {
     return res.status(400).json({
       status: 'Fail',
       message: 'Please enter a valid name',
     });
   }
-  if (!req.body['price']) {
+  if (!req.body.price) {
     return res.status(400).json({
       status: 'Fail',
       message: 'Please enter a valid price',
@@ -44,7 +45,6 @@ exports.getAllTours = (req, res) => {
 };
 
 exports.getTourById = (req, res) => {
-  console.log(req.params);
   const id = req.params.id * 1; //Convert the string into a number
   const tour = tours.find((el) => el.id === id); //Find the tour that matches the ID as provided in the parameters
 
@@ -60,21 +60,20 @@ exports.createTour = (req, res) => {
   // console.log(req.body);
 
   const newId = tours[tours.length - 1].id + 1;
-  const newTour = Object.assign({ id: newId }, req.body);
+  const newTour = { id: newId, ...req.body };
   tours.push(newTour);
 
   fs.writeFile(
     `${__dirname}/dev-data/data/tours-simple.json`,
     JSON.stringify(tours),
-    (err) => {
+    () => {
       res.status(201).json({
         status: 'Success',
         data: {
           tour: newTour,
         },
       });
-      console.log(`New tour added.`);
-    }
+    },
   );
 };
 

@@ -1,0 +1,9 @@
+# Dependencies
+node_modules/
+
+# Environment variables (SECURITY RISK if uploaded!)
+config.env
+.env
+
+# System files (Optional but good practice)
+.DS_Store
